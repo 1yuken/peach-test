@@ -1,7 +1,9 @@
-<script setup></script>
+<script setup>
+import TheHeader from './components/TheHeader.vue'
+</script>
 
 <template>
-  <div></div>
+  <TheHeader/>
 </template>
 
 <style lang="scss" scoped></style>
