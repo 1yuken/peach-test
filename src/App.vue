@@ -5,6 +5,7 @@ import OfficesMap from './components/OfficesMap.vue'
 import Mission from './components/Mission.vue'
 import Directions from './components/Directions.vue'
 import Additions from './components/Additions.vue'
+import CorporateLife from './components/CorporateLife.vue'
 </script>
 
 <template>
@@ -14,6 +15,7 @@ import Additions from './components/Additions.vue'
   <Mission/>
   <Directions/>
   <Additions/>
+  <CorporateLife/>
 </template>
 
 <style lang="scss" scoped></style>

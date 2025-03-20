@@ -180,7 +180,7 @@
     }
   }
   .additions__block {
-    max-width: 100px;
+    max-width: 110px;
   }
   .additions__block-title {
     font-size: 16px;
