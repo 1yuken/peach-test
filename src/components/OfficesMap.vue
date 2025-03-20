@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
       navItems.forEach((i) => i.classList.remove('active'))
       item.classList.add('active')
       const mapName = item.getAttribute('data-map')
-      mapImg.src = `/public/img/map/${mapName}.svg`
+      mapImg.src = `/img/map/${mapName}.svg`
     })
   })
 
@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </ul>
       </div>
       <div class="map__img-container">
-        <img class="map__img" src="/public/img/map/all.svg" alt="Map" />
+        <img class="map__img" src="/img/map/all.svg" alt="Map" />
       </div>
     </div>
   </div>
@@ -218,7 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
   top: 50%;
   right: -40px;
   transform: translateY(-50%);
-  background-image: url('/public/img/arrow-down.svg');
+  background-image: url('/img/arrow-down.svg');
   background-repeat: no-repeat;
   background-position: center;
   transition: transform 0.3s;
@@ -367,7 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
     content: '';
     width: 8px;
     height: 5px;
-    background: url(/public/img/arrow-down__gray.svg);
+    background: url(/img/arrow-down__gray.svg);
     background-repeat: no-repeat;
     right: -15px;
     top: 50%;
