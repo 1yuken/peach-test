@@ -1,11 +1,11 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   const images = [
-    '/img/slider/1.png',
-    '/img/slider/2.png',
-    '/img/slider/3.png',
-    '/img/slider/4.png',
-    '/img/slider/5.png',
+    '../../public/img/slider/1.png',
+    '../../public/img/slider/2.png',
+    '../../public/img/slider/3.png',
+    '../../public/img/slider/4.png',
+    '../../public/img/slider/5.png',
   ]
 
   let currentIndex = 0
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
           </button>
         </div>
       </div>
-      <img class="corporate__slider-img" src="/img/slider/1.png" alt="photo" />
+      <img class="corporate__slider-img" src="../../public/img/slider/1.png" alt="photo" />
       <div class="corporate__pagination"></div>
     </div>
   </div>
