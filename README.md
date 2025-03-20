@@ -1,35 +1,17 @@
-# peach-test
+# Макет лендинга
 
-This template should help get you started developing with Vue 3 in Vite.
+Данный проект является тестовым заданием. Задание заключается в создании адаптивной страницы, с соответствии с макетом. Он представляет из себя
+лендинг, с описанием преимуществ работы в компании для потенциальных соискателей.
 
-## Recommended IDE Setup
+## Запуск проекта
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+1. Клонируйте репозиторий.
+2. Установите все зависимости и запустите проект следующими командами:
+   **- npm install** 
+   **- npm run dev**
+3. Веб-приложение будет доступно по адресу **localhost:5173**.
 
-## Customize configuration
+## Просмотр проекта
+1. Проект также будет доступен по адресу **1yuken.github.io/peach-test/**.
 
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+**Стек**: JavaScript, SCSS, Vite
