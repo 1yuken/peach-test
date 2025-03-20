@@ -11,7 +11,7 @@ import CorporateLife from './components/CorporateLife.vue'
 <template>
   <TheHeader/>
   <Hero/>
-  <!-- <OfficesMap/> -->
+  <OfficesMap/>
   <Mission/>
   <Directions/>
   <Additions/>

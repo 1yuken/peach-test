@@ -28,7 +28,7 @@
 .mission {
   margin-top: 100px;
   background-color: #cb0f41;
-  padding: 140px 70px 92px;
+  padding: 140px 70px 140px;
   position: relative;
   z-index: 0;
 
@@ -79,7 +79,7 @@
 
 @media (max-width: 1024px) {
   .mission {
-    padding: 120px 50px 80px;
+    padding: 120px 50px 120px;
 
     &::before,
     &::after {
@@ -91,7 +91,7 @@
 
 @media (max-width: 768px) {
   .mission {
-    padding: 100px 50px 60px;
+    padding: 100px 50px 100px;
 
     &::before,
     &::after {
@@ -112,7 +112,8 @@
 
 @media (max-width: 480px) {
   .mission {
-    padding: 50px 20px 40px;
+    padding: 50px 20px 50px;
+    margin-top: 50px;
 
     &::before,
     &::after {
@@ -137,7 +138,7 @@
   }
 
   .mission__description {
-    margin-top: 20px;
+    margin-top: 10px;
     font-size: 16px;
   }
 }

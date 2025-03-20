@@ -351,12 +351,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
   .directions__title {
     font-size: 36px;
-    margin-top: 50px;
+    margin-top: 30px;
   }
 
   .directions__block-description {
     max-width: 540px;
     font-size: 16px;
+  }
+  .directions__blocks {
+    margin-top: 30px;
   }
 }
 

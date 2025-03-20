@@ -1,6 +1,5 @@
-<script setup>
+<script>
 document.addEventListener('DOMContentLoaded', () => {
-  // Existing map navigation functionality
   const navItems = document.querySelectorAll('.map__nav-item')
   const mapImg = document.querySelector('.map__img')
 
@@ -13,46 +12,24 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   })
 
-  // New modal functionality
   const officesBtn = document.querySelector('.map__nav-btn')
   const mapNav = document.querySelector('.map__nav')
-  
-  // Create overlay
+
   const overlay = document.createElement('div')
   overlay.className = 'modal-overlay'
   overlay.style.display = 'none'
   document.body.appendChild(overlay)
-  
-  // Create modal
+
   const modal = document.createElement('div')
   modal.className = 'offices-modal'
   modal.style.display = 'none'
-  
-  // Create modal content
+
   modal.innerHTML = `
     <div class="offices-modal__content">
-      <div class="offices-modal__header">
-        <h3>Офисы Softline</h3>
-        <button class="offices-modal__close">&times;</button>
-      </div>
       <div class="offices-modal__body">
-        <div class="offices-modal__tabs">
-          <div class="offices-modal__tab active" data-region="all">Все</div>
-          <div class="offices-modal__tab" data-region="moscow">Москва</div>
-          <div class="offices-modal__tab" data-region="center">Центр</div>
-          <div class="offices-modal__tab" data-region="severo-zapad">Северо-Запад</div>
-          <div class="offices-modal__tab" data-region="yug">Юг</div>
-          <div class="offices-modal__tab" data-region="volga">Волга</div>
-          <div class="offices-modal__tab" data-region="ural">Урал</div>
-          <div class="offices-modal__tab" data-region="sibir">Сибирь</div>
-          <div class="offices-modal__tab" data-region="dalniy-vostok">Дальний Восток</div>
-        </div>
         <div class="offices-modal__cities">
           <div class="offices-modal__region">
             <h4>Москва</h4>
-            <ul>
-              <li>Москва</li>
-            </ul>
           </div>
           <div class="offices-modal__region">
             <h4>Центр</h4>
@@ -94,6 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <li>Челябинск</li>
               <li>Пермь</li>
               <li>Сургут</li>
+              <li>Тюмень</li>
               <li>Ижевск</li>
             </ul>
           </div>
@@ -118,20 +96,17 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     </div>
   `
-  
-  // Insert modal after the map__nav
+
   mapNav.insertAdjacentElement('afterend', modal)
-  
-  // Toggle modal on button click
+
   officesBtn.addEventListener('click', () => {
     const isVisible = modal.style.display === 'block'
-    
+
     if (!isVisible) {
       modal.style.display = 'block'
       overlay.style.display = 'block'
       officesBtn.classList.add('active')
-      
-      // Make sure the button stays on top of the overlay
+
       officesBtn.style.position = 'relative'
       officesBtn.style.zIndex = '1001'
     } else {
@@ -140,37 +115,34 @@ document.addEventListener('DOMContentLoaded', () => {
       officesBtn.classList.remove('active')
     }
   })
-  
-  // Close modal when clicking the close button
-  const closeBtn = modal.querySelector('.offices-modal__close')
-  closeBtn.addEventListener('click', () => {
-    modal.style.display = 'none'
-    overlay.style.display = 'none'
-    officesBtn.classList.remove('active')
-  })
-  
-  // Close modal when clicking on the overlay
+
   overlay.addEventListener('click', () => {
     modal.style.display = 'none'
     overlay.style.display = 'none'
     officesBtn.classList.remove('active')
   })
-  
-  // Handle tab clicks in the modal
-  const modalTabs = modal.querySelectorAll('.offices-modal__tab')
-  modalTabs.forEach((tab) => {
-    tab.addEventListener('click', () => {
-      // Update active tab
-      modalTabs.forEach((t) => t.classList.remove('active'))
-      tab.classList.add('active')
-      
-      // Get region and update map
-      const region = tab.getAttribute('data-region')
-      
-      // Find and activate corresponding map nav item
-      const correspondingNavItem = document.querySelector(`.map__nav-item[data-map="${region}"]`)
-      if (correspondingNavItem) {
-        correspondingNavItem.click()
+
+  document.querySelectorAll('.offices-modal__region h4').forEach((header) => {
+    header.addEventListener('click', () => {
+      const list = header.nextElementSibling
+
+      if (list && list.tagName === 'UL') {
+        const isOpen = list.classList.contains('visible')
+
+        document.querySelectorAll('.offices-modal__region ul').forEach((ul) => {
+          ul.classList.remove('visible')
+          ul.style.maxHeight = '0px'
+        })
+
+        document.querySelectorAll('.offices-modal__region h4').forEach((h4) => {
+          h4.classList.remove('open')
+        })
+
+        if (!isOpen) {
+          list.classList.add('visible')
+          list.style.maxHeight = list.scrollHeight + 'px'
+          header.classList.add('open')
+        }
       }
     })
   })
@@ -194,32 +166,39 @@ document.addEventListener('DOMContentLoaded', () => {
           <li class="map__nav-item" data-map="dalniy-vostok">Дальний восток</li>
         </ul>
       </div>
-      <img class="map__img" src="/public/img/map/all.svg" alt="Map" />
+      <div class="map__img-container">
+        <img class="map__img" src="/public/img/map/all.svg" alt="Map" />
+      </div>
     </div>
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .container {
   max-width: 1200px;
   margin: 0 auto;
   position: relative;
 }
+
 .map {
   margin-top: 80px;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
+
 .map__nav {
   margin-bottom: 100px;
   display: flex;
   justify-content: space-between;
+  gap: 15px;
   align-items: center;
   padding: 24px 70px;
   box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.06);
   position: relative;
-  z-index: 1002; /* Ensure nav is above overlay */
+  z-index: 1002;
 }
+
 .map__nav-btn {
   font-weight: 600;
   font-size: 24px;
@@ -230,6 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
   padding: 0;
   transition: color 0.3s;
 }
+
 .map__nav-btn::after {
   position: absolute;
   content: '';
@@ -243,9 +223,11 @@ document.addEventListener('DOMContentLoaded', () => {
   background-position: center;
   transition: transform 0.3s;
 }
+
 .map__nav-btn.active::after {
   transform: translateY(-50%) rotate(180deg);
 }
+
 .map__nav-list {
   display: flex;
   align-items: center;
@@ -254,34 +236,37 @@ document.addEventListener('DOMContentLoaded', () => {
   padding: 0;
   margin: 0;
 }
+
 .map__nav-item {
   font-size: 18px;
   font-weight: 600;
   cursor: pointer;
   position: relative;
 }
+
 .map__nav-item.active {
   color: #b01736;
 }
+
 .map__nav-item.active::after {
   position: absolute;
   content: '';
   width: 100%;
-  height: 2px;
+  height: 3px;
   background-color: #b01736;
   left: 50%;
-  bottom: -6px;
+  bottom: -28px;
   transform: translateX(-50%);
 }
+
 .map__img {
   max-width: 100%;
   height: auto;
   display: block;
   position: relative;
-  z-index: 999; /* Below the modal */
+  z-index: 1;
 }
 
-/* Modal overlay */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -292,20 +277,22 @@ document.addEventListener('DOMContentLoaded', () => {
   z-index: 1000;
 }
 
-/* Modal styles */
 .offices-modal {
-  position: relative;
+  position: absolute;
+  top: 100px;
+  left: 0;
+  right: 0;
   z-index: 1001;
   background-color: #fff;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
   border-radius: 0 0 8px 8px;
-  margin-top: -100px; /* Negative margin to pull it up */
-  margin-bottom: 100px; /* Keep the spacing for the map */
   width: 100%;
 }
 
 .offices-modal__content {
   padding: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .offices-modal__header {
@@ -362,16 +349,31 @@ document.addEventListener('DOMContentLoaded', () => {
 }
 
 .offices-modal__cities {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 30px;
+  padding: 0 48px;
+  display: flex;
+  gap: 24px;
 }
 
 .offices-modal__region h4 {
+  font-family: 'ProximaNova', sans-serif;
+  display: inline-block;
   font-size: 18px;
   font-weight: 600;
   margin: 0 0 10px 0;
-  color: #b01736;
+  position: relative;
+
+  &::after {
+    position: absolute;
+    content: '';
+    width: 8px;
+    height: 5px;
+    background: url(/public/img/arrow-down__gray.svg);
+    background-repeat: no-repeat;
+    right: -15px;
+    top: 50%;
+    transform: translateY(10%);
+    display: none;
+  }
 }
 
 .offices-modal__region ul {
@@ -381,8 +383,118 @@ document.addEventListener('DOMContentLoaded', () => {
 }
 
 .offices-modal__region li {
+  font-family: 'ProximaNova', sans-serif;
   margin-bottom: 8px;
   font-size: 16px;
 }
-</style>
 
+@media (max-width: 1200px) {
+  .map__nav {
+    padding: 24px 20px;
+  }
+  .map__nav-list {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 992px) {
+  .map__nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .map__nav-item.active::after {
+    bottom: -24px;
+  }
+  .offices-modal {
+    top: 130px;
+  }
+  .offices-modal__cities {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 768px) {
+  .offices-modal__region ul {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+  }
+
+  .offices-modal__region ul.visible {
+    max-height: 400px;
+  }
+
+  .offices-modal__region h4 {
+    cursor: pointer;
+    position: relative;
+    margin-right: 20px;
+  }
+
+  .offices-modal__region h4::after {
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .offices-modal__region h4.open::after {
+    transform: rotate(180deg);
+  }
+  .offices-modal__cities {
+    gap: 10px;
+  }
+  .map__nav-list {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    gap: 10px;
+    padding-bottom: 5px;
+    white-space: nowrap;
+    max-width: 100%;
+  }
+
+  .map__nav-item {
+    flex: 0 0 auto;
+    padding: 10px 15px;
+  }
+
+  .map__nav {
+    overflow: hidden;
+    width: 100%;
+    margin-bottom: 50px;
+  }
+
+  .map__nav-list::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .map__nav-list::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 5px;
+  }
+  .offices-modal {
+    top: 160px;
+  }
+  .map__img-container {
+    overflow-x: auto;
+    width: 100%;
+    display: flex;
+  }
+
+  .map__img {
+    max-width: none;
+    height: auto;
+    display: block;
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .offices-modal__region h4 {
+    font-size: 16px;
+  }
+  .offices-modal__region li {
+    font-size: 14px;
+  }
+}
+</style>
